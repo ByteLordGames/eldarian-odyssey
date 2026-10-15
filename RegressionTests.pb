@@ -94,7 +94,7 @@ OpenConsole()
 OnErrorCall(@Crash())
 P_InitalizeLoc("enu")
 Assert(Bool(_L(apptitle) = "Eldarian Odyssey"), "localized title")
-Assert(Bool(_L(copyright) = "(c) 2018-2026, ByteCave"), "localized copyright is current")
+Assert(Bool(_L(copyright) = "(c) 2026, ByteLord"), "localized copyright is current")
 InitializeRooms()
 GG\ptrInventory = FindMapElement(Rooms(), #INVENTORY)
 GG\ptrInventory\iRoomX = -1
@@ -389,3 +389,10 @@ For depth = 24 To 32 Step 8
 Next
 PrintN(Str(checks) + " checks; " + Str(failures) + " failures")
 End Bool(failures > 0)
+
+; IDE Options = PureBasic 6.41 (Windows - x64)
+; CursorPosition = 113
+; FirstLine = 92
+; Folding = --
+; EnableXP
+; DPIAware
