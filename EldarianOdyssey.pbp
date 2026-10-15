@@ -134,7 +134,7 @@
     <target name="DebugX86" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
-      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
       <options debug="1"/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
@@ -156,7 +156,7 @@
     <target name="ReleaseX86" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x86.exe"/>
-      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x86.exe"/>
       <options/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>

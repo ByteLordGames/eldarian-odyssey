@@ -2,13 +2,15 @@
 
 **Major spoilers.** Baseline: `f98ce913bfbee70bcf52c121dea998d4a7b29baa`, branch `master`.
 
+Updated 2026-10-15: PureBasic 6.41 x86 was installed and the x86 builds and regression suite were validated.
+
 The supplied Codex prompt authorized this work. The supplied preliminary review was checked against source; the 2018 notes transcription was treated as uncertain historical evidence, not instructions or sufficient grounds for changing gameplay. Runtime modules, room/noun databases, TODO/development notes, text resources, and project metadata were reviewed. The custom DSL, four-letter parser, state-bit reuse, pseudo-rooms, humor, and graphical presentation remain.
 
 ## Migration and validation
 
-Verified compiler: **PureBasic 6.41 (Windows - x64)**, normal ASM `pbcompiler.exe`. All five uses of removed `#PB_String_InPlace` were migrated to assigned `ReplaceString()` results, retaining case sensitivity, start positions, and replacement counts. No additional compile-blocking incompatibilities remained after that migration. Current semantics were checked against the official [ReplaceString reference](https://www.purebasic.com/documentation/string/replacestring.html), [migration guide](https://www.purebasic.com/documentation/reference/migration.html), and [compiler CLI reference](https://www.purebasic.com/documentation/reference/cli_compiler.html).
+Verified compilers: **PureBasic 6.41 (Windows - x64 and x86)**, normal ASM `pbcompiler.exe` for each architecture. All five uses of removed `#PB_String_InPlace` were migrated to assigned `ReplaceString()` results, retaining case sensitivity, start positions, and replacement counts. No additional compile-blocking incompatibilities remained after that migration. Current semantics were checked against the official [ReplaceString reference](https://www.purebasic.com/documentation/string/replacestring.html), [migration guide](https://www.purebasic.com/documentation/reference/migration.html), and [compiler CLI reference](https://www.purebasic.com/documentation/reference/cli_compiler.html).
 
-The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, product fields, and IFID; their company metadata is ByteLord and their project version fields are now 1.06. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
+The x64 and x86 project compiler selections now name PureBasic 6.41 for their respective architectures. DebugX86 enables debugging. All four targets retain their paths, icon, product fields, and IFID; their company metadata is ByteLord and their project version fields are 1.06.
 
 Run from this directory:
 
@@ -16,23 +18,24 @@ Run from this directory:
 powershell -NoProfile -File .\Validate.ps1
 ```
 
-This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.06; the PBP targets use the same version number for IDE builds.
+This runs `/CHECK`, release builds with `/ICON /XP /USER`, debugger-enabled builds, and the console regression executable for x64 and, when installed, x86. It stops on failure and does not launch the graphical game. The CLI builds embed architecture-specific release/debug Windows version resources, all reporting version 1.06; the PBP targets use the same version number for IDE builds. Pass `-CompilerX86` when the 32-bit compiler is installed in another location.
 
 Results at completion:
 
 | Validation | Result and scope |
 |---|---|
-| Application `/CHECK` | Passed with PureBasic 6.41 x64 ASM |
-| Release executable | Built successfully at `Binaries/EldarianOdyssey-x64.exe` |
-| Debugger-enabled executable | Built successfully; not a claim of an interactive debugger playthrough |
-| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.06 executable |
-| Regression executable | **217 checks, 0 failures** |
+| Application `/CHECK` | Passed with PureBasic 6.41 x64 and x86 ASM |
+| Release executables | Built successfully at `Binaries/EldarianOdyssey-x64.exe` and `Binaries/EldarianOdyssey-x86.exe` |
+| Debugger-enabled executables | Both architectures built successfully; not a claim of interactive debugger playthroughs |
+| Published archives | x64 and x86 release/debug ZIPs each contain exactly their matching version 1.06 executable |
+| Regression executables | **217 checks, 0 failures on x64; 217 checks, 0 failures on x86** |
 | Complete game progression | Executed from fresh state through actual parser/handlers, rescue, return, and once-only reward; inventory membership checked after each command |
 | Save/load | Real temporary EOS files exercised for victory, timers/metadata, jump warnings, reset, invalid-load rejection, and failed-save dirty state |
-| x64 inline assembly | Executed grayscale conversion on 24- and 32-bit images, including the final pixel |
+| x64 and x86 inline assembly | Executed grayscale conversion on 24- and 32-bit images, including the final pixel |
 | Graphical startup | Launched and visually inspected: maximized window, welcome/room text, embedded presentation, direction and torch indicators appeared without an immediate fatal error |
 | Physical keyboard/dialogs/themes | F5 was verified in both directions, and the owner verified the corrected QUIT/EXIT confirmation behavior in the rebuilt graphical application. F1/F2, HELP paging, text editing/history, remaining confirmations, and other physical input still require owner testing |
-| x86, Linux, macOS | Not built or run |
+| x86 graphical application | Built but not launched for manual playtesting |
+| Linux, macOS | Not built or run |
 
 The harness includes the actual game modules and draws text to an offscreen image. Targeted edge cases use explicit world fixtures. The complete walkthrough uses normal commands without teleporting or granting items; it advances the opening watchman's timer directly instead of waiting. This validates engine behavior, not the keyboard/rendering event loop or every possible command ordering.
 
@@ -81,7 +84,7 @@ The harness includes the actual game modules and draws text to an offscreen imag
 - Existing three-field timer records remain accepted; the old watchman room target is inferred. Old saves never recorded all timer metadata, so missing historical information cannot always be recovered. Real-time timers intentionally expire on load, preserving the existing policy.
 - Old already-broken victory saves do not contain a reliable once-only reward marker or proof of the correct rescue sequence. New saves preserve those states; arbitrary old corrupted progression is not guaranteed to be reconstructed.
 - Native title-bar close still follows the existing immediate exit path. Use the game's QUIT or EXIT command to exercise its unsaved-progress confirmation. High-DPI, alternate monitors/fonts, theme contrast, dialog paging, and physical keyboard handling need manual verification.
-- The build/test pass does not establish every optional puzzle branch, all death animations, x86 assembly, or other operating systems.
+- The build/test pass does not establish every optional puzzle branch, all death animations, x86 graphical behavior, or other operating systems.
 
 ## Exact manual walkthrough and checkpoints
 
