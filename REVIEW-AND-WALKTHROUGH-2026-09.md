@@ -31,7 +31,7 @@ Results at completion:
 | Save/load | Real temporary EOS files exercised for victory, timers/metadata, jump warnings, reset, invalid-load rejection, and failed-save dirty state |
 | x64 inline assembly | Executed grayscale conversion on 24- and 32-bit images, including the final pixel |
 | Graphical startup | Launched and visually inspected: maximized window, welcome/room text, embedded presentation, direction and torch indicators appeared without an immediate fatal error |
-| Physical keyboard/dialogs/themes | F5 was verified in the rebuilt graphical application in both directions. F1/F2, HELP paging, text editing/history, confirmations, and other physical input still require owner testing |
+| Physical keyboard/dialogs/themes | F5 was verified in both directions, and the owner verified the corrected QUIT/EXIT confirmation behavior in the rebuilt graphical application. F1/F2, HELP paging, text editing/history, remaining confirmations, and other physical input still require owner testing |
 | x86, Linux, macOS | Not built or run |
 
 The harness includes the actual game modules and draws text to an offscreen image. Targeted edge cases use explicit world fixtures. The complete walkthrough uses normal commands without teleporting or granting items; it advances the opening watchman's timer directly instead of waiting. This validates engine behavior, not the keyboard/rendering event loop or every possible command ordering.
@@ -69,7 +69,7 @@ The harness includes the actual game modules and draws text to an offscreen imag
 - Cliff/chasm warning counters were static procedure locals: New Game did not reset them and saves omitted them. They now use previously unused bit 7 on each respective noun, preserving the existing alternating warning/death behavior.
 - Text search respects buffer bounds; wrapping progresses with trailing CR or very narrow widths. Missing randomized-message pointers are guarded, and a missing initialization error string was added.
 - Keyboard state is sampled once per frame, and release edges are captured before command-line processing can consume them. This restores F5 theme switching; both directions were verified in the graphical application. History cursor movement resets correctly, and function-key overlays cannot interrupt paused death sequences.
-- QUIT/EXIT confirmation now exits only when the player answers Y. N or Escape cancels without resetting the active game, while NEW retains its separate fresh-game behavior. The routing and declined-QUIT state preservation are covered by the regression harness; physical confirmation input remains in the manual checklist.
+- QUIT/EXIT confirmation now exits only when the player answers Y. N or Escape cancels without resetting the active game, while NEW retains its separate fresh-game behavior. The routing and declined-QUIT state preservation are covered by the regression harness, and the owner verified the corrected confirmation behavior in the rebuilt graphical application.
 - Torch lighting consumes one turn; unchanged state assignments no longer mark saves dirty. Font fallback returns a PureBasic font identifier rather than a Windows handle. An unused no-op text helper was removed.
 
 ## Remaining limits and intentionally unfinished content
