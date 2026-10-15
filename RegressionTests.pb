@@ -95,6 +95,10 @@ OnErrorCall(@Crash())
 P_InitalizeLoc("enu")
 Assert(Bool(_L(apptitle) = "Eldarian Odyssey"), "localized title")
 Assert(Bool(_L(copyright) = "(c) 2026, ByteLord"), "localized copyright is current")
+Assert(ShouldExitGame("Y", "QUIT"), "confirmed QUIT exits the application")
+Assert(ShouldExitGame("Y", "EXIT"), "confirmed EXIT exits the application")
+Assert(Bool(Not ShouldExitGame("N", "QUIT")), "declined QUIT keeps the application open")
+Assert(Bool(Not ShouldExitGame("Y", "NEW")), "NEW starts another game instead of exiting")
 InitializeRooms()
 GG\ptrInventory = FindMapElement(Rooms(), #INVENTORY)
 GG\ptrInventory\iRoomX = -1
@@ -107,6 +111,11 @@ GU\iXWidth = 1000
 StartDrawing(ImageOutput(#IMAGEBUFID))
 Fresh()
 Assert(Bool(GG\ptrInventory\iCount = MapSize(GG\ptrInventory\mapNouns())), "initial inventory count")
+Define roomBeforeQuit.s = GG\ptrRoom\strRoom
+GU\iDialog = #DIALOG_QUESTION
+GG\strDialogVerb = "QUIT"
+OkayToAct("N")
+Assert(Bool(GU\iDialog = #DIALOG_NONE And GG\ptrRoom\strRoom = roomBeforeQuit), "declined QUIT closes only the confirmation")
 Command("LIGHT TORCH")
 Command("CLIMB TREE")
 Command("CLIMB DOWN")

@@ -15,6 +15,13 @@ Define sh_iYStartD.i, sh_iNumPages.i
 Dim sh_rgPages.ABOUTPAGE(1)    ;will use base=1 for first element, so need 2 elements (0 and 1)
 Define sh_iCharacters.i, sh_iDialogTextLen.i
 
+Procedure.i ShouldExitGame(strAnswer.s, strVerb.s)
+  If strAnswer = "Y" And (strVerb = "QUIT" Or strVerb = "EXIT")
+    ProcedureReturn #True
+  EndIf
+  ProcedureReturn #False
+EndProcedure
+
 Procedure OkayToAct(strAnswer.s, strOverrideVerb.s = "")
   GU\fGray = #False
   GU\iDialog = #DIALOG_NONE
@@ -23,15 +30,15 @@ Procedure OkayToAct(strAnswer.s, strOverrideVerb.s = "")
     GG\strDialogVerb = strOverrideVerb
   EndIf
   
-  If strAnswer = "Y"
+  If ShouldExitGame(strAnswer, GG\strDialogVerb)
+    End
+  ElseIf strAnswer = "Y"
     Select GG\strDialogVerb
-      Case "EXIT"
-        End        
       Case "LOAD"
         LoadGame(GG\strLoadFileName, #True)
-      Case "QUIT", "NEW"
+      Case "NEW"
         ClearOutputBuffer()
-        AddToOutput("*** You quit the previous game. New game started.^^")
+        AddToOutput("*** You ended the previous game. New game started.^^")
         ReinitializeGame()
     EndSelect
   Else

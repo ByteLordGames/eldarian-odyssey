@@ -8,7 +8,7 @@ The supplied Codex prompt authorized this work. The supplied preliminary review 
 
 Verified compiler: **PureBasic 6.41 (Windows - x64)**, normal ASM `pbcompiler.exe`. All five uses of removed `#PB_String_InPlace` were migrated to assigned `ReplaceString()` results, retaining case sensitivity, start positions, and replacement counts. No additional compile-blocking incompatibilities remained after that migration. Current semantics were checked against the official [ReplaceString reference](https://www.purebasic.com/documentation/string/replacestring.html), [migration guide](https://www.purebasic.com/documentation/reference/migration.html), and [compiler CLI reference](https://www.purebasic.com/documentation/reference/cli_compiler.html).
 
-The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, company/product fields, and IFID; their project version fields are now 1.03. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
+The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, product fields, and IFID; their company metadata is ByteLord and their project version fields are now 1.04. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
 
 Run from this directory:
 
@@ -16,7 +16,7 @@ Run from this directory:
 powershell -NoProfile -File .\Validate.ps1
 ```
 
-This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.03; the PBP targets use the same version number for IDE builds.
+This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.04; the PBP targets use the same version number for IDE builds.
 
 Results at completion:
 
@@ -25,8 +25,8 @@ Results at completion:
 | Application `/CHECK` | Passed with PureBasic 6.41 x64 ASM |
 | Release executable | Built successfully at `Binaries/EldarianOdyssey-x64.exe` |
 | Debugger-enabled executable | Built successfully; not a claim of an interactive debugger playthrough |
-| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.03 executable |
-| Regression executable | **212 checks, 0 failures** |
+| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.04 executable |
+| Regression executable | **217 checks, 0 failures** |
 | Complete game progression | Executed from fresh state through actual parser/handlers, rescue, return, and once-only reward; inventory membership checked after each command |
 | Save/load | Real temporary EOS files exercised for victory, timers/metadata, jump warnings, reset, invalid-load rejection, and failed-save dirty state |
 | x64 inline assembly | Executed grayscale conversion on 24- and 32-bit images, including the final pixel |
@@ -69,6 +69,7 @@ The harness includes the actual game modules and draws text to an offscreen imag
 - Cliff/chasm warning counters were static procedure locals: New Game did not reset them and saves omitted them. They now use previously unused bit 7 on each respective noun, preserving the existing alternating warning/death behavior.
 - Text search respects buffer bounds; wrapping progresses with trailing CR or very narrow widths. Missing randomized-message pointers are guarded, and a missing initialization error string was added.
 - Keyboard state is sampled once per frame, and release edges are captured before command-line processing can consume them. This restores F5 theme switching; both directions were verified in the graphical application. History cursor movement resets correctly, and function-key overlays cannot interrupt paused death sequences.
+- QUIT/EXIT confirmation now exits only when the player answers Y. N or Escape cancels without resetting the active game, while NEW retains its separate fresh-game behavior. The routing and declined-QUIT state preservation are covered by the regression harness; physical confirmation input remains in the manual checklist.
 - Torch lighting consumes one turn; unchanged state assignments no longer mark saves dirty. Font fallback returns a PureBasic font identifier rather than a Windows handle. An unused no-op text helper was removed.
 
 ## Remaining limits and intentionally unfinished content
@@ -77,7 +78,7 @@ The harness includes the actual game modules and draws text to an offscreen imag
 - The embedded custom text reader still trusts authored resource sentinels and formatting. Save validation guards required references/structure, not every possible malicious or hand-edited state combination.
 - Existing three-field timer records remain accepted; the old watchman room target is inferred. Old saves never recorded all timer metadata, so missing historical information cannot always be recovered. Real-time timers intentionally expire on load, preserving the existing policy.
 - Old already-broken victory saves do not contain a reliable once-only reward marker or proof of the correct rescue sequence. New saves preserve those states; arbitrary old corrupted progression is not guaranteed to be reconstructed.
-- Native title-bar close still follows the existing immediate exit path. Use the game's EXIT command to exercise its unsaved-progress confirmation. High-DPI, alternate monitors/fonts, theme contrast, dialog paging, and physical keyboard handling need manual verification.
+- Native title-bar close still follows the existing immediate exit path. Use the game's QUIT or EXIT command to exercise its unsaved-progress confirmation. High-DPI, alternate monitors/fonts, theme contrast, dialog paging, and physical keyboard handling need manual verification.
 - The build/test pass does not establish every optional puzzle branch, all death animations, x86 assembly, or other operating systems.
 
 ## Exact manual walkthrough and checkpoints
@@ -134,7 +135,7 @@ To verify the blocked premature ending, load EODEAD and leave east without searc
 - At the inn after buying the map: `DROP MAP | PAY DROW | GET MAP`. No second charge or duplicate map. At the town hall: `LOOK LOG | LOOK LOGS | LOOK CEILING | LOOK CIRCLET | GET CIRCLET` gives scenery responses and refuses taking the circlet.
 - At the courtyard while carrying the King's note: `GIVE NOTE | INVENTORY`. Keep the note until reaching the clerk. At the buried bottle: `DIG BOTTLE | LOOK | GET POTION`; the empty bottle must not remain described as buried.
 - At the cliff, save after the first `JUMP CLIFF`, load, and repeat it: the second attempt triggers death. Start NEW and return there: the first attempt must warn again. Chasm follows the same warning/second-attempt pattern.
-- Physical UI: F1/About, F2/Credits, HELP paging/close, F5 both themes; type and edit a command, use Up/Down history and Esc, then Enter. Confirm output wraps, directions and flame update, and overlays cannot interrupt the paused lich-death period. Test NEW/LOAD/EXIT confirmations with unsaved progress and cancel each once before accepting.
+- Physical UI: F1/About, F2/Credits, HELP paging/close, F5 both themes; type and edit a command, use Up/Down history and Esc, then Enter. Confirm output wraps, directions and flame update, and overlays cannot interrupt the paused lich-death period. Test NEW/LOAD/QUIT/EXIT confirmations with unsaved progress and cancel each once before accepting; Y must close the application for QUIT/EXIT.
 - In the throne room before the torch blessing: `TALK GUARD | SPEAK GUARDS | KNEEL KING | TALK GUARD`. Both initial conversations should include “Kneel before the king, knave!” Kneeling with the torch grants everlasting light; the final conversation should omit the now-completed clue.
 
 ## Git delivery

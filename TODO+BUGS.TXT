@@ -36,3 +36,6 @@ Status key:
 
 [FIXED - MANUAL UI] F5 stopped toggling the light/dark theme.
   Function and dialog key-release edges are now captured before command-line keyboard processing. F5 was verified in the rebuilt graphical application in both directions. Keep F1, F2, F5, HELP paging, Escape, and confirmation keys in the manual UI regression checklist.
+
+[FIXED - AUTOMATED; MANUAL UI VALIDATION PENDING] Confirmed QUIT returned to the game instead of exiting.
+  QUIT and EXIT now terminate only after a Y response. N or Escape cancels and leaves the current game intact. NEW alone starts a fresh game. The routing is covered by regression checks; repeat both confirmation responses in the rebuilt graphical application during the next uninterrupted manual UI pass.

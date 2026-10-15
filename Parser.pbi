@@ -64,11 +64,17 @@ Procedure.i ValidSingleWordVerb(strVerb.s, *sNoun.STRING)
       SaveGame("")  ;single word save, no filename passed in
     Case "LOAD"
       LoadGame("")
-    Case "QUIT", "NEW"
+    Case "QUIT"
       If GU\iDirty
         DialogBox(#DIALOG_QUESTION, "WAIT!^^Are you sure you want to quit this game? All progress will be lost. You can save your progress first if you'd like, just press ESC or answer No and type SAVE.", "QUIT")
       Else
         OkayToAct("Y", "QUIT")
+      EndIf
+    Case "NEW"
+      If GU\iDirty
+        DialogBox(#DIALOG_QUESTION, "WAIT!^^Are you sure you want to start a new game? All progress in the current game will be lost. You can save your progress first if you'd like, just press ESC or answer No and type SAVE.", "NEW")
+      Else
+        OkayToAct("Y", "NEW")
       EndIf
     Case "EXIT"
       If GU\iDirty
