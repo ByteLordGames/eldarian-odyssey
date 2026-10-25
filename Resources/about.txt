@@ -7,7 +7,7 @@ This cross-platform open source project is programmed in PureBasic(tm), by Fanta
 *****************************************************
 * Licensed under the BSD 3-Clause License           *
 *****************************************************
-Copyright (c) 2026 ByteLord
+Copyright (c) 2018-2026 ByteLord
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 

@@ -7,7 +7,7 @@ enu:
   Data.s "[output_font]", "SV Basic Manual"
   
   Data.s "[apptitle]", "Eldarian Odyssey"
-  Data.s "[copyright]", "(c) 2026, ByteLord"
+  Data.s "[copyright]", "(c) 2018-2026, ByteLord"
   Data.s "[entryprompt]", "ENTER COMMAND:"
   Data.s "[ERROR]", "Error"
   Data.s "[CANTINITGRAPHICS]", "Can't initialize graphics screen"

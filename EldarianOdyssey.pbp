@@ -102,7 +102,7 @@
         <field5 value="1.06"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Debug x64"/>
-        <field9 value="(c) 2026, ByteLord"/>
+        <field9 value="(c) 2018-2026, ByteLord"/>
         <field14 value="https://github.com/ByteLordGames/eldarian-odyssey/tree/main/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
@@ -125,7 +125,7 @@
         <field5 value="1.06"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Release x64"/>
-        <field9 value="(c) 2026, ByteLord"/>
+        <field9 value="(c) 2018-2026, ByteLord"/>
         <field14 value="https://github.com/ByteLordGames/eldarian-odyssey/tree/main/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
@@ -147,7 +147,7 @@
         <field5 value="1.06"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Debug x86"/>
-        <field9 value="(c) 2026, ByteLord"/>
+        <field9 value="(c) 2018-2026, ByteLord"/>
         <field14 value="https://github.com/ByteLordGames/eldarian-odyssey/tree/main/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
@@ -169,7 +169,7 @@
         <field5 value="1.06"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Release x86"/>
-        <field9 value="(c) 2026, ByteLord"/>
+        <field9 value="(c) 2018-2026, ByteLord"/>
         <field14 value="https://github.com/ByteLordGames/eldarian-odyssey/tree/main/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>

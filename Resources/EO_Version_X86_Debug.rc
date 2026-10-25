@@ -15,7 +15,7 @@ BEGIN
       VALUE "FileDescription", "Eldarian Odyssey Text Adventure Game"
       VALUE "FileVersion", "1.06"
       VALUE "InternalName", "EldarianOdyssey"
-      VALUE "LegalCopyright", "Copyright 2026, ByteLord"
+      VALUE "LegalCopyright", "Copyright 2018-2026, ByteLord"
       VALUE "OriginalFilename", "EldarianOdyssey-x86-Debug.exe"
       VALUE "ProductName", "Eldarian Odyssey"
       VALUE "ProductVersion", "1.06"
